@@ -6,7 +6,18 @@ buildscript {
     dependencies {
         classpath "com.github.jengelman.gradle.plugins:shadow:2.0.4"
         classpath "io.spring.gradle:dependency-management-plugin:1.0.5.RELEASE"
-        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.31"
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:1.2.51"
+        classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0'
+    }
+}
+
+apply plugin: 'org.junit.platform.gradle.plugin'
+
+junitPlatform {
+    filters {
+        engines {
+            include 'spek'
+        }
     }
 }
 
@@ -24,6 +35,8 @@ repositories {
     mavenLocal()
     mavenCentral()
     maven { url "https://jcenter.bintray.com" }
+    maven { url "http://dl.bintray.com/jetbrains/spek" }
+
 }
 
 dependencyManagement {
@@ -46,6 +59,9 @@ dependencies {
     testCompile "org.jetbrains.spek:spek-api:1.1.5"
     testRuntime "org.junit.jupiter:junit-jupiter-engine:5.1.0"
     testRuntime "org.jetbrains.spek:spek-junit-platform-engine:1.1.5"
+
+    testCompile 'org.jetbrains.spek:spek-api:1.1.5'
+    testRuntime "org.junit.jupiter:junit-jupiter-engine:5.1.0"
 }
 
 shadowJar {
